@@ -1,0 +1,8 @@
+pandas
+matplotlib
+seaborn
+missingno
+scikit-learn
+xgboost
+optuna
+shap
