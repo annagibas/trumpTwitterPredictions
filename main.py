@@ -5,9 +5,9 @@ from src.models.evaluate import compare_models
 from src.models.feature_importance import get_feature_importance_rf, get_feature_importance_xgb
 from src.visualization.plot_feature_importance import plot_feature_importance_bar
 from src.visualization.plot_shap_summary import plot_shap_summary
-from src.visualization.metrics import plot_model_metrics
+from src.visualization.plot_metrics import plot_model_metrics
 
-def main():
+def main(metrics_df = None):
     print("=== Wczytywanie danych ===")
     df = load_dataset()
 
