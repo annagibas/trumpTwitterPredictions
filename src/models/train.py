@@ -1,8 +1,10 @@
+
 from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import RandomForestRegressor
 from xgboost import XGBRegressor
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import mean_squared_error, r2_score
+import numpy as np
 
 def train_all_models(X_train, X_test, y_train, y_test):
     """
@@ -29,7 +31,7 @@ def train_all_models(X_train, X_test, y_train, y_test):
     y_pred_lr = lr_model.predict(X_test_scaled)
 
     results['Linear Regression'] = {
-        'RMSE': mean_squared_error(y_test, y_pred_lr, squared=False),
+        'RMSE': np.sqrt(mean_squared_error(y_test, y_pred_lr)),
         'R2': r2_score(y_test, y_pred_lr)
     }
     predictions['Linear Regression'] = y_pred_lr
@@ -40,7 +42,7 @@ def train_all_models(X_train, X_test, y_train, y_test):
     y_pred_rf = rf_model.predict(X_test)
 
     results['Random Forest'] = {
-        'RMSE': mean_squared_error(y_test, y_pred_rf, squared=False),
+        'RMSE': np.sqrt(mean_squared_error(y_test, y_pred_rf)),
         'R2': r2_score(y_test, y_pred_rf)
     }
     predictions['Random Forest'] = y_pred_rf
@@ -51,7 +53,7 @@ def train_all_models(X_train, X_test, y_train, y_test):
     y_pred_xgb = xgb_model.predict(X_test)
 
     results['XGBoost'] = {
-        'RMSE': mean_squared_error(y_test, y_pred_xgb, squared=False),
+        'RMSE': np.sqrt(mean_squared_error(y_test, y_pred_xgb)),
         'R2': r2_score(y_test, y_pred_xgb)
     }
     predictions['XGBoost'] = y_pred_xgb
