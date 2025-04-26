@@ -52,8 +52,9 @@ def main():
 
     plot_feature_importance_bar(
         importance_df=xgb_imp,
-        title="XGBoost - Feature Importance",
-        save_path="results/plots/xgb_importance.png"
+        title="XGBoost Feature Importance (Gain)",
+        save_path="results/plots/xgb_importance_plot.png",
+        metric="gain"
     )
 
     print("=== SHAP Summary Plot dla XGBoost ===")

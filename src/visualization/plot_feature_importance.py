@@ -1,36 +1,35 @@
-import os
 import matplotlib.pyplot as plt
 import seaborn as sns
-import pandas as pd
+import os
 
-def plot_feature_importance_bar(importance_df, title="Feature Importance", top_n=10, save_path=None):
+def plot_feature_importance_bar(importance_df, title, save_path, top_n=20, metric='Importance'):
     """
-    Tworzy wykres słupkowy ważności cech i zapisuje go do pliku PNG, jeśli podano ścieżkę.
+    Tworzy wykres słupkowy najważniejszych cech według wskazanej metryki.
 
     Parametry:
-    - importance_df: DataFrame z kolumnami 'Feature' i 'Importance'
+    - importance_df: DataFrame z kolumnami 'Feature' oraz wybraną metryką ('Importance', 'gain', 'weight', itp.)
     - title: tytuł wykresu
-    - top_n: liczba najważniejszych cech do pokazania
-    - save_path: pełna ścieżka zapisu wykresu (.png), np. 'results/plots/rf_importance.png'
+    - save_path: ścieżka do pliku, w którym zapisze się wykres
+    - top_n: ile najważniejszych cech pokazać (domyślnie 20)
+    - metric: według której kolumny sortować ('Importance', 'gain', itd.)
     """
 
-    top_features = importance_df.sort_values(by="Importance", ascending=False).head(top_n)
+    # Sprawdzamy czy wskazana metryka istnieje w DataFrame
+    if metric not in importance_df.columns:
+        raise ValueError(f"Metryka '{metric}' nie istnieje w danych. Dostępne kolumny: {importance_df.columns.tolist()}")
 
+    # Wybieramy najważniejsze cechy według wskazanej metryki
+    top_features = importance_df.sort_values(by=metric, ascending=False).head(top_n)
+
+    # Upewniamy się, że folder na zapis wykresu istnieje
+    os.makedirs(os.path.dirname(save_path), exist_ok=True)
+
+    # Tworzenie wykresu
     plt.figure(figsize=(10, 6))
-    sns.barplot(x="Importance", y="Feature", data=top_features, palette="Blues_d")
+    sns.barplot(x=metric, y='Feature', data=top_features, palette="Blues_d")
     plt.title(title)
-    plt.xlabel("Ważność cechy")
-    plt.ylabel("Cechy")
     plt.tight_layout()
+    plt.savefig(save_path)
+    plt.close()
 
-    if save_path:
-        # Tworzenie katalogu, jeśli nie istnieje
-        directory = os.path.dirname(save_path)
-        if not os.path.exists(directory):
-            os.makedirs(directory)
-
-        plt.savefig(save_path)
-        print(f"Wykres zapisany do pliku: {save_path}")
-        plt.close()
-    else:
-        plt.show()
+    print(f"Wykres zapisany do pliku: {save_path}")
