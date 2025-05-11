@@ -18,7 +18,7 @@ def missing_data(df: pd.DataFrame):
     missing_df = pd.DataFrame({'Missing values': missing, 'Percent': missing_percent})
     print(missing_df[missing_df['Missing values'] > 0])
 
-    # Bezpieczna wizualizacja braków
+    # Wizualizacja braków
     msno.bar(df)
     plt.title("Missing Data Bar Chart")
     plt.show()
@@ -50,3 +50,21 @@ def detect_outliers_iqr(df: pd.DataFrame):
         sns.boxplot(x=df[col])
         plt.title(f"Boxplot dla {col}")
         plt.show()
+
+
+#analiza rozkładu zmiennej docelowej retweet_count
+def plot_target_distribution(df: pd.DataFrame, target_col: str = 'retweet_count'):
+    print(f"\nROZKŁAD ZMIENNEJ DOCELOWEJ: {target_col}\n")
+
+    # Histogram i wykres KDE (pokazuje, jak wygląda rozkład, bez potrzeby czytania liczb.)
+    plt.figure(figsize=(8, 5))
+    sns.histplot(df[target_col], kde=True, bins=50)
+    plt.title(f"Rozkład zmiennej docelowej: {target_col}")
+    plt.xlabel(target_col)
+    plt.ylabel("Liczność")
+    plt.tight_layout()
+    plt.show()
+
+    # Informacja o skośności (Skośność mówi, czy warto rozważyć transformację)
+    skewness = df[target_col].skew()
+    print(f"Skośność rozkładu ({target_col}): {skewness:.2f}")
