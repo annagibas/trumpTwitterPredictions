@@ -1,7 +1,6 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
-import pandas as pd
 
 def plot_model_metrics(metrics_df, save_path_rmse=None, save_path_r2=None):
     """
@@ -44,7 +43,7 @@ def plot_model_metrics(metrics_df, save_path_rmse=None, save_path_r2=None):
 
 def _save_plot(path):
     """
-    Pomocnicza funkcja zapisująca wykres do pliku i tworząca folder, jeśli potrzeba.
+    Pomocnicza funkcja zapisująca wykres do pliku i tworząca folder
     """
     directory = os.path.dirname(path)
     if not os.path.exists(directory):

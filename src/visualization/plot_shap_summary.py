@@ -10,7 +10,7 @@ def plot_shap_summary(model, X_sample, feature_names=None, save_path=None):
     - model: wytrenowany model (np. XGBoost, Random Forest, itp.)
     - X_sample: dane wejściowe do obliczeń SHAP (np. X_test)
     - feature_names: lista nazw cech (opcjonalnie)
-    - save_path: ścieżka zapisu wykresu (.png), np. 'results/plots/shap_summary.png'
+    - save_path: ścieżka zapisu wykresu (.png)
     """
 
     explainer = shap.Explainer(model, X_sample)

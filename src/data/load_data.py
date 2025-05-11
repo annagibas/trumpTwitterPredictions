@@ -3,10 +3,8 @@ from pathlib import Path
 
 def load_dataset():
     """
-    Wczytuje plik Trump_data.csv z katalogu data/.
+    Wczytywanie pliku Trump_data.csv z katalogu data/.
     Zwraca obiekt DataFrame z danymi.
-
-    Ścieżka względna: ../data/Trump_data.csv
     """
 
     data_path = Path(__file__).resolve().parents[2] / 'data' / 'Trump_data.csv'

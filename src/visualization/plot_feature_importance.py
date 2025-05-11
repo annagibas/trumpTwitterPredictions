@@ -7,21 +7,23 @@ def plot_feature_importance_bar(importance_df, title, save_path, top_n=20, metri
     Tworzy wykres słupkowy najważniejszych cech według wskazanej metryki.
 
     Parametry:
-    - importance_df: DataFrame z kolumnami 'Feature' oraz wybraną metryką ('Importance', 'gain', 'weight', itp.)
+    - importance_df: DataFrame z kolumnami 'Feature' oraz wybraną metryką ('Gain', 'Weight', 'Cover', itp.)
     - title: tytuł wykresu
     - save_path: ścieżka do pliku, w którym zapisze się wykres
     - top_n: ile najważniejszych cech pokazać (domyślnie 20)
-    - metric: według której kolumny sortować ('Importance', 'gain', itd.)
+    - metric: według której kolumny sortować ('Gain', 'Weight', itd.)
     """
 
-    # Sprawdzamy czy wskazana metryka istnieje w DataFrame
+    importance_df.columns = [col.capitalize() for col in importance_df.columns]
+
+    # Sprawdzanie czy wskazana metryka istnieje w DataFrame
     if metric not in importance_df.columns:
         raise ValueError(f"Metryka '{metric}' nie istnieje w danych. Dostępne kolumny: {importance_df.columns.tolist()}")
 
-    # Wybieramy najważniejsze cechy według wskazanej metryki
+    # Wybór najważniejszych cech według wskazanej metryki
     top_features = importance_df.sort_values(by=metric, ascending=False).head(top_n)
 
-    # Upewniamy się, że folder na zapis wykresu istnieje
+    # Upewnienie się, że folder na zapis wykresu istnieje
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
 
     # Tworzenie wykresu
