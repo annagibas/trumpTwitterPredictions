@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 
-def plot_model_metrics(metrics_df, save_path_rmse=None, save_path_r2=None):
+def plot_model_metrics(metrics_df, save_path_rmse=None, save_path_r2=None, save_path_mae=None):
     """
     Tworzy dwa wykresy słupkowe porównujące:
     - RMSE dla każdego modelu
@@ -37,6 +37,19 @@ def plot_model_metrics(metrics_df, save_path_rmse=None, save_path_r2=None):
 
     if save_path_r2:
         _save_plot(save_path_r2)
+    else:
+        plt.show()
+
+    # MAE
+    plt.figure(figsize=(10, 6))
+    sns.barplot(x='MAE', y='Model', data=metrics_df.sort_values(by='MAE'), palette='Oranges_r')
+    plt.title("Porównanie modeli – MAE")
+    plt.xlabel("MAE")
+    plt.ylabel("Model")
+    plt.tight_layout()
+
+    if save_path_mae:
+        _save_plot(save_path_mae)
     else:
         plt.show()
 

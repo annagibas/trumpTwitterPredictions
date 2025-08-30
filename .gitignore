@@ -1,0 +1,36 @@
+# Wirtualne środowisko
+.venv/
+venv/
+
+# Pliki Pythona
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+
+# Logi i dane wynikowe
+*.log
+*.csv
+*.tsv
+*.out
+*.tmp
+*.bak
+
+
+# Modele zapisane binarnie
+*.joblib
+*.pkl
+*.sav
+
+# Pliki tymczasowe edytora
+*.swp
+*.swo
+
+# PyCharm
+.idea/
+
+# Pliki konfiguracyjne systemowe
+.DS_Store
+Thumbs.db
